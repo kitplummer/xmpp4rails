@@ -19,6 +19,7 @@
 #
 
 require 'xmpp4r'
+require 'xmpp4r/muc'
 
 module Xmpp4Rails
   def register_account jid, pw
@@ -35,7 +36,7 @@ module Xmpp4Rails
       # Shutdown
       cl.close
     rescue Errno::ECONNREFUSED
-      raise StandardError, "Connection to XMPP Failed."
+      raise StandardError, "Connection to XMPP Server Failed."
     rescue Jabber::ErrorException
       raise StandardError, "Account conflict."
     end
@@ -51,14 +52,13 @@ module Xmpp4Rails
 
       cl.close
     rescue Errno::ECONNREFUSED
-      raise StandardError, "Connection to XMPP Failed."
+      raise StandardError, "Connection to XMPP Server Failed."
     end
 
   end
   
   def change_password jid, current_pw, new_pw
     begin
-      #cl = Jabber::Client.new(Jabber::JID.new(jid + "/rvooz"))
       cl = Jabber::Client::new(Jabber::JID.new(jid))
       logger.info "Connecting to change password for: " + jid.to_s
       cl.connect 
@@ -70,5 +70,34 @@ module Xmpp4Rails
       raise StandardError, "Failed to change XMPP password."
     end
   end
-   
+  
+  def simple_send jid, pw, to_jid, message
+    begin
+      cl = Jabber::Client::new(Jabber::JID.new(jid))
+      cl.connect
+      cl.auth(pw)
+      m = Jabber::Message::new(to_jid, message).set_type(:normal).set_id('1')
+      cl.send(m)
+      cl.close
+    rescue
+      raise StandardError, "Failed to send XMPP message."
+    end
+  end
+  
+  def connect jid, pw
+    
+      @cl = Jabber::Client::new(Jabber::JID.new(jid))
+      @cl.connect
+      @cl.auth(pw)
+    
+  end
+  
+  def muc_join
+    @muc = Jabber::MUC::SimpleMUCClient.new(@cl)
+  end
+  
+  def muc_simple_send message
+    @muc.say message
+  end
+       
 end
