@@ -5,3 +5,16 @@ xmpp4rails is a xmpp4r wrapper turned Rails plugin...with a few advanced feature
 This project is currently licensed under the Apache 2.0 license.
 
 Any questions, comments feel free to get me at kitplummer(at)gmail.com
+
+xmpp4r: http://home.gna.org/xmpp4r/
+
+See the actual code or generated rdoc for the interfaces.  To utilize the stubs you need to copy the xmpp
+4rails/test/mocks/test/xmpp4rails.rb to your #{RAILS_ROOT}/test/mocks/test subdirectory.
+
+There's a simple rake task to do this for you too:
+
+rake xmpp4rails:setup
+
+To uninstall the stub:
+
+rake xmpp4rails:remove
