@@ -18,8 +18,6 @@
 # @author: Kit Plummer (kitplummer@gmail.com)
 #
 
-require 'test/unit'
-
 class Xmpp4RailsTest < Test::Unit::TestCase
   # Replace this with your real tests.
   def test_this_plugin

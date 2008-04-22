@@ -23,7 +23,7 @@ require 'xmpp4r'
 module Xmpp4Rails
   def register_account jid, pw
     begin
-      cl = Jabber::Client.new(Jabber::JID.new(jid + "/rvooz"))
+      cl = Jabber::Client.new(Jabber::JID.new(jid))
       logger.info "Connecting to register with: " + jid.to_s
       cl.connect
 
@@ -35,7 +35,7 @@ module Xmpp4Rails
       # Shutdown
       cl.close
     rescue Errno::ECONNREFUSED
-      raise StandardError, "Connection to Openfire Failed."
+      raise StandardError, "Connection to XMPP Failed."
     rescue Jabber::ErrorException
       raise StandardError, "Account conflict."
     end
@@ -43,7 +43,7 @@ module Xmpp4Rails
 
   def unregister_account jid, pw
     begin
-      cl = Jabber::Client.new(Jabber::JID.new(jid + "/rvooz"))
+      cl = Jabber::Client.new(Jabber::JID.new(jid))
       logger.info "Connecting to unregister with: " + jid.to_s
       cl.connect
       cl.auth(pw)
@@ -51,7 +51,7 @@ module Xmpp4Rails
 
       cl.close
     rescue Errno::ECONNREFUSED
-      raise StandardError, "Connection to Openfire Failed."
+      raise StandardError, "Connection to XMPP Failed."
     end
 
   end
@@ -67,7 +67,7 @@ module Xmpp4Rails
 
       cl.close
     rescue 
-      raise StandardError, "Failed to change Openfire password."
+      raise StandardError, "Failed to change XMPP password."
     end
   end
    
