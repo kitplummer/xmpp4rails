@@ -1,0 +1,5 @@
+xmpp4rails is a xmpp4r wrapper turned Rails plugin...with a few advanced features like user registration and multi-user chat sends.
+
+[Note: this is a open project in development.  The features that exist, exist because they are what I need.  If there's an xmpp4r interface that you need let me know, or add it and submit a patch.  I'd like to see a consolidated set of Jabber tools - rather than a dispersed set of functionality across mulitple plugins.  I'm no Rails expert, and even less so on the testing side.  I'm learning and attempting to get coverage up to par - including a stubbed out Jabber server.]
+
+This project is currently licensed under the Apache 2.0 license.
